@@ -1,6 +1,3 @@
-const express = require('express');
-const router = express.Router();
-
 async function validateWord(inputWord, board){
     var dr = [-1, 0, 1, 0];
     var dc = [0, 1, 0, -1];
@@ -29,7 +26,6 @@ async function validateWord(inputWord, board){
         return false;
 
     };
-    
     try {
         let gameBoard = splitBoard(board);
         let newWord = inputWord.toUpperCase();
@@ -51,21 +47,20 @@ async function validateWord(inputWord, board){
     }
 }
 
-router.post('/validate-word', async (req, res) => {
-    const { inputWord, board } = req.body;
-  
-    try {
-      const isValid = await validateWord(inputWord, board);
-      res.status(200).json({ isValid });
-    } catch (error) {
-      console.log('Game Board:', inputWord);
-      console.log('New Word:', board);
-      console.error(error.message);
-      res.status(500).json({ error: 'Internal server error' });
+async function checkWordInDictionary(inputWord){
+    try{
+        const dictionaryWords = fs.readFileSync('dictionary.txt', 'utf8');
+        const dictionaryWord = dictionaryWords.split(/\s+/);
+        let wordExist = dictionaryWord.includes(inputWord);
+        return wordExist;
     }
-  });
-  
-  module.exports = router;
+    catch (error) {
+        throw new Error('Error checking in Dictionary')
+    }
+}
+
+module.exports = { validateWord, checkWordInDictionary };
+
 // let inputWord = "sulks";
 // let board = "KIP*JILURPKSDVHA";
 // validateWord(inputWord, board).then(result => {

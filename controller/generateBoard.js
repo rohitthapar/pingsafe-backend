@@ -1,7 +1,4 @@
-const express = require('express');
-const router = express.Router();
-
-async function generateRandomString() {
+async function generateRandomBoard() {
     const getRandomChar = () => {
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ*';
         return characters.charAt(Math.floor(Math.random() * characters.length));
@@ -18,14 +15,5 @@ async function generateRandomString() {
     }
   }
 
-  router.get('/generate-random-string', async (req, res) => {
-    try {
-      const randomString = await generateRandomString();
-      res.status(200).json({ randomString });
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).json({ error: 'Internal server error' });
-    }
-  });
-  
-  module.exports = router;
+module.exports = { generateRandomBoard };
+

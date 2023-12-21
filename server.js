@@ -2,10 +2,9 @@ const express = require('express');
 
 const morgan = require('morgan'); 
 const bodyParser = require('body-parser'); 
-const wordcheck = require('./controller/existInDictionary')
-const generateBoard = require('./controller/generateBoard')
-const validateWord = require('./controller/validateWord')
-// Define a route
+const createGame = require('./controller/createGame')
+const playGame = require('./controller/playGame')
+const showGame = require('./controller/showGame')
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,9 +12,9 @@ const PORT = process.env.PORT || 3000;
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
-app.use('/api', wordcheck);
-app.use('/api', generateBoard);
-app.use('/api', validateWord);
+app.use('/api', createGame);
+app.use('/api', playGame);
+app.use('/api', showGame);
 // Start the server
 
 app.listen(PORT, () => {
