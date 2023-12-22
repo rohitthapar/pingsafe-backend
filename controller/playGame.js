@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { validateWord, checkWordInDictionary } = require('./validateWord.js');
-
+const { getGameById, updateGamePoints } = require('../db/db.js')
 
 router.put('/games/:id', (req, res) => {
     const { id } = req.params;
@@ -22,3 +22,4 @@ router.put('/games/:id', (req, res) => {
   res.status(200);
 });
 
+module.exports = router;

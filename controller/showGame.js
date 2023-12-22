@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { getGameById } = require('../db/db.js'); 
 
 router.get('/games/:id', (req, res) => {
     const { id } = req.params;
@@ -10,3 +11,4 @@ router.get('/games/:id', (req, res) => {
     res.status(200).json(game);
   });
   
+module.exports = router;
